@@ -4,23 +4,17 @@ import { mongo } from '../managers/mongo'
 import hashString from '../lib/hashStrings'
 
 passport.use(new Strategy({
-  usernameField: 'email',
+  usernameField: 'username',
   passwordField: 'password'
 },
 
-async function (email, password, cb) {
-  const db = await mongo.admin
-  const user = await db.collection('users').findOne({
-    email,
+async function (userCode, password, cb) {
+  const user = await mongo.db.collection('users').findOne({
+    userCode,
     password: hashString(password)
   }, {
     projection: {
-      email: 1,
-      roles: 1
-    },
-    collation: {
-      locale: 'en',
-      strength: 1
+      userCode: 1
     }
   }).catch(err => ({ err }))
 

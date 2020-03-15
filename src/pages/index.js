@@ -1,9 +1,9 @@
-import React from 'react'
-import Nav from '../components/nav'
+import React, { useEffect } from 'react'
+import Login from '../components/Login'
 import useControlledForm from '../lib/useControlledForm'
 import { authenticatedFetch } from '../lib/fetch'
 import { useRouter } from 'next/router'
-import copy from 'copy-text-to-clipboard'
+import storage from '../lib/storage'
 
 const fields = {
   Fiebre: {},
@@ -35,7 +35,58 @@ const defaultValues = {
   Debilidad: 'No sé'
 }
 
-function Home ({ roles = ['anonymous'] }) {
+const sliders = [
+  {
+    label: 'Fiebre',
+    name: 'Fiebre'
+  },
+  {
+    label: 'Tos',
+    name: 'Tos'
+  },
+  {
+    label: 'Moco',
+    name: 'Moco'
+  },
+  {
+    label: 'Congestión Nasal',
+    name: 'CongestiónNasal'
+  },
+  {
+    label: 'Estornudos',
+    name: 'Estornudos'
+  },
+  {
+    label: 'Dolor de garganta',
+    name: 'DolorDeGarganta'
+  },
+  {
+    label: 'Dificultad para respirar',
+    name: 'DificultadParaRespirar'
+  },
+  {
+    label: 'Flema',
+    name: 'Flema'
+  },
+  {
+    label: 'Vomito',
+    name: 'Vomito'
+  },
+  {
+    label: 'Diarrea',
+    name: 'Diarrea'
+  },
+  {
+    label: 'Cansancio',
+    name: 'Cansancio'
+  },
+  {
+    label: 'Debilidad',
+    name: 'Debilidad'
+  }
+]
+
+export default function Home ({ roles = ['anonymous'] }) {
   const {
     handleSubmit,
     setInput,
@@ -51,20 +102,39 @@ function Home ({ roles = ['anonymous'] }) {
       method: 'POST',
       json
     })
-    router.push(`/historial-anónimo/${response.me.userId}`)
+    storage.set('/historial-anonimo', response)
+    router.push('/historial-anonimo')
   }
+
+  useEffect(() => {
+    authenticatedFetch('ultimo-diagnostico').then((res) => {
+      if (!res.me || !res.me.userCode) {
+        return
+      }
+      storage.set('/historial-anonimo', res)
+      router.push('/historial-anonimo')
+    })
+  }, [])
 
   return (
     <>
-      <Nav roles={roles} />
+      <section className="hero is-primary">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title">
+              stop-COVID-19
+            </h1>
+            <h2 className="subtitle">
+              Herramienta de diagnóstico avanzado
+            </h2>
+          </div>
+        </div>
+      </section>
       <div className="section">
-        <h1 className="title">
-          Stop COVID-19
-        </h1>
         <div className="container">
           <div className="tile is-ancestor">
             <div className="tile is-parent is-baseline">
-              <div className="tile is-child notification is-light">
+              <div className="tile is-child notification has-background-light">
                 <h3 className="subtitle">Diagnóstico:</h3>
                 <ol className="helpSteps">
                   <li>Rellena este formulario para saber si tus síntomas se corresponden con el coronavirus.</li>
@@ -76,235 +146,38 @@ function Home ({ roles = ['anonymous'] }) {
             </div>
 
             <div className="tile is-parent is-baseline">
-              <div className="tile is-child box">
+              <div className="tile is-child box is-primary">
                 <h2 className="subtitle">Síntomas</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Fiebre: {getValue('Fiebre')} {(getValue('Fiebre')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Fiebre"
-                        />
-                        <span>100%</span>
+                  {sliders.map(field => (
+                    <div key={field.name} className="field">
+                      <div className="control">
+                        <label htmlFor="terms"> {field.label}: {getValue(field.name)} {(getValue(field.name)) !== 'No sé' ? '%' : ''}</label>
+                        <div className="slider">
+                          <span>0%</span>
+                          <input
+                            className="slider is-fullwidth"
+                            step="1"
+                            min="0"
+                            max="100"
+                            type="range"
+                            onChange={setInput}
+                            name={field.name}
+                          />
+                          <span>100%</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Tos: {getValue('Tos')} {(getValue('Tos')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Tos"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Moco: {getValue('Moco')} {(getValue('Moco')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Moco"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Congestión Nasal: {getValue('CongestiónNasal')} {(getValue('CongestiónNasal')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="CongestiónNasal"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Estornudos: {getValue('Estornudos')} {(getValue('Estornudos')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Estornudos"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Dolor de garganta: {getValue('DolorDeGarganta')} {(getValue('DolorDeGarganta')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="DolorDeGarganta"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Dificultad para respirar: {getValue('DificultadParaRespirar')} {(getValue('DificultadParaRespirar')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="DificultadParaRespirar"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Flema: {getValue('Flema')} {(getValue('Flema')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Flema"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Vomito: {getValue('Vomito')} {(getValue('Vomito')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Vomito"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Diarrea: {getValue('Diarrea')} {(getValue('Diarrea')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Diarrea"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Cansancio: {getValue('Cansancio')} {(getValue('Cansancio')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Cansancio"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label htmlFor="terms"> Debilidad: {getValue('Debilidad')} {(getValue('Debilidad')) !== 'No sé' ? '%' : ''}</label>
-                      <div className="slider">
-                        <span>0%</span>
-                        <input
-                          className="slider is-fullwidth"
-                          step="1"
-                          min="0"
-                          max="100"
-                          type="range"
-                          onChange={setInput}
-                          name="Debilidad"
-                        />
-                        <span>100%</span>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                   <hr />
-                  <button className="button" type="submit">Diagnóstico</button>
+                  <button className="button is-black is-large" type="submit">Diagnóstico</button>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Login/>
     </>
   )
 }
-
-export default Home

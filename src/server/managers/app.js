@@ -19,7 +19,7 @@ export default function app (...array) {
     passport,
     ...array
   ], {
-    verbose: true,
+    // verbose: true,
     errorHandling (name, error, state, req, res) {
       console.log(name, error, req.path)
       res.status(500).json({ step: name })

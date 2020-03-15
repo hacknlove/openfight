@@ -22,6 +22,12 @@ const schema = joi.object({
   Debilidad: joi.string()
 })
 
+function createUserId ({
+  set
+}) {
+  set.userCode = `${randomStrings(3)}-${randomStrings(3)}-${randomStrings(3)}`
+}
+
 function hashPassword ({
   set
 }) {
@@ -32,15 +38,62 @@ function hashPassword ({
 async function insertUser ({
   set,
   get: {
-    password
+    userCode,
+    password,
+    plainPassword
   },
   mongo
 }, req) {
   set.insertion = mongo.collection('users').insertOne({
+    userCode,
     password,
+    plainPassword,
     ip: [requestIp.getClientIp(req)]
   })
 }
+
+function createToken ({
+  set,
+  get: {
+    userCode
+  }
+}) {
+  set.randomString = randomStrings()
+  set.token = jwt.sign({ sub: userCode, token: set.randomString }, process.env.JWT_SECRET)
+}
+
+async function insertToken ({
+  get: {
+    userCode,
+    randomString
+  },
+  mongo,
+  set
+}) {
+  set.insertToken = mongo.collection('tokens').insertOne({
+    date: new Date(),
+    userCode,
+    randomString
+  })
+}
+
+const positivos = new Set([
+  'Fiebre',
+  'Tos',
+  'DificultadParaRespirar',
+  'Flema',
+  'Cansancio',
+  'Debilidad'
+])
+
+const negativos = new Set([
+  'Moco',
+  'CongestiónNasal',
+  'Estornudos',
+  'DolorDeGarganta',
+  'Vomito',
+  'Diarrea'
+])
 
 async function getId ({
   set,
@@ -65,50 +118,7 @@ async function getId ({
   return response('unknown', 400)
 }
 
-function createToken ({
-  set,
-  get: {
-    userId
-  }
-}) {
-  set.randomString = randomStrings()
-  set.token = jwt.sign({ sub: userId, token: set.randomString }, process.env.JWT_SECRET)
-}
-
-async function insertToken ({
-  get: {
-    userId,
-    randomString
-  },
-  mongo,
-  set
-}) {
-  set.token = mongo.collection('tokens').insertOne({
-    date: new Date(),
-    userId,
-    randomString
-  })
-}
-
-const positivos = new Set([
-  'Fiebre',
-  'Tos',
-  'DificultadParaRespirar',
-  'Flema',
-  'Cansancio',
-  'Debilidad'
-])
-
-const negativos = new Set([
-  'Moco',
-  'CongestiónNasal',
-  'Estornudos',
-  'DolorDeGarganta',
-  'Vomito',
-  'Diarrea'
-])
-
-async function insertParameters ({
+async function insertSintomas ({
   get: {
     userId,
     body
@@ -116,7 +126,6 @@ async function insertParameters ({
   mongo,
   set
 }, req) {
-
   let sum = 0
 
   for (const [key, value] of Object.entries(body)) {
@@ -130,14 +139,13 @@ async function insertParameters ({
     if (positivos.has(key)) {
       sum += +v
     } else if (negativos.has(key)) {
-      sum -= v
+      sum -= v * 3
     } else {
-      console.log('Error, por ahora no tenemos parametros neutros')
+      console.error('Error, por ahora no tenemos parametros neutros')
     }
-    set.diagnostico = (sum + 600) / 12
-
+    set.diagnostico = (sum + 1800) / 24
   }
-  set.parameters = mongo.collection('parameters').insertOne({
+  set.Sintomas = mongo.collection('sintomas').insertOne({
     ...body,
     userId,
     diagnostico: set.diagnostico,
@@ -148,19 +156,19 @@ async function insertParameters ({
 
 async function waitInserts ({
   get: {
-    parameters,
-    token
+    Sintomas,
+    insertToken
   }
 }) {
-  await parameters
-  await token
+  await Sintomas
+  await insertToken
 }
 
 function setCookieToken ({
   get: {
     token
   }
-}, req, res) {
+}, _, res) {
   setCookie({ res }, 'jwt', token, {
     maxAge: 30 * 24 * 60 * 60,
     path: '/',
@@ -172,25 +180,25 @@ function setCookieToken ({
 
 function response ({
   get: {
-    userId,
-    diagnostico,
-    plainPassword
+    userCode,
+    diagnostico
   },
   control: { response }
 }, req) {
-  req.user = { userId }
-  response({ diagnostico, plainPassword })
+  req.user = { userCode }
+  response({ diagnostico })
 }
 
 export default switchMethod({
   POST: app(
     validateBodyFactory(schema),
+    createUserId,
     hashPassword,
-    createToken,
     insertUser,
     getId,
+    createToken,
     insertToken,
-    insertParameters,
+    insertSintomas,
     waitInserts,
     setCookieToken,
     response

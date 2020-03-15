@@ -1,3 +1,4 @@
-module.exports = function response ({ context: { done } }) {
-  done(200, { ok: true })
+export default function response ({ control: { response, done } }) {
+  response({ ok: true })
+  done()
 }

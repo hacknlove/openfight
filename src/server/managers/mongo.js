@@ -8,8 +8,6 @@ export default async function mongoToContext (state) {
   if (!mongo.db) {
     await mongoConnect()
   }
-  console.log(mongo.db)
-  console.log(mongo.db.collection)
   state.mongo = mongo.db
 }
 

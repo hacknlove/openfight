@@ -29,5 +29,21 @@ $navbar-breakpoint: 20px
     margin-left: 1rem
     margin-right: 1rem
 
-.control
+div.field:not(:last-child)
   margin-bottom: 2rem
+
+form.is-horizontal
+  max-width: 100vw
+  display: flex
+  flex-wrap: wrap
+  *
+    margin-right: 6px
+
+@media ( max-width: 550px )
+  form.is-horizontal
+    display: block
+
+.title.brand
+  color: white
+  text-align: center
+  width: 100%

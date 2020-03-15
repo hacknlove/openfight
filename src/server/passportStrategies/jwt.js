@@ -1,6 +1,6 @@
 import passport from 'passport'
 import { mongo } from '../managers/mongo'
-import { Strategy, ExtractJwt} from 'passport-jwt'
+import { Strategy, ExtractJwt } from 'passport-jwt'
 import jwt from 'jsonwebtoken'
 import { parseCookies } from 'nookies'
 
@@ -27,18 +27,16 @@ passport.use(new Strategy({
     })
   }
 
-  const admin = await mongo.admin
-  const tokenPromise = admin.collection('tokens').findOne({
-    email: jwtPayload.sub + '',
+  const tokenPromise = mongo.db.collection('tokens').findOne({
+    userCode: jwtPayload.sub,
     randomString: jwtPayload.token + ''
   })
 
-  const userPromise = admin.collection('users').findOne({
-    email: jwtPayload.sub + ''
+  const userPromise = mongo.db.collection('users').findOne({
+    userCode: jwtPayload.sub
   }, {
     projection: {
-      email: 1,
-      roles: 1
+      userCode: 1
     }
   })
 
@@ -61,6 +59,8 @@ passport.use(new Strategy({
   if (user.err) {
     return done(null, { status: 500, error: 'database error' })
   }
+
+  user.randomString = jwtPayload.token
 
   return done(null, user)
 }))

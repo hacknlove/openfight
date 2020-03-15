@@ -2,7 +2,6 @@ import fetchHelper from '@hacknlove/fetchhelper'
 
 async function handleErrors (response) {
   const [ok, error] = await response
-  console.error([ok, error])
   if (ok) {
     return ok
   }
