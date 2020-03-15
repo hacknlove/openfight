@@ -1,0 +1,9 @@
+{
+  "build": {
+    "env": {
+      "MONGO_URL": "@mongo_url",
+      "HASH_SECRET": "@hash_secret",
+      "JWT_SECRET": "@jwt_secret"
+    }
+  }
+}
