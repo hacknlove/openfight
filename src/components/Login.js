@@ -4,25 +4,24 @@ import clsx from 'clsx'
 import { unAuthenticatedFetch } from '../lib/fetch'
 import { useRouter } from 'next/router'
 
-const fields = {
-  username: {
-    rule (value) {
-      if (!value) {
-        return 'Introduce tu código anónimo'
+export default function Login ({ translations }) {
+  const fields = {
+    username: {
+      rule (value) {
+        if (!value) {
+          return 'Introduce tu código anónimo'
+        }
+        if (!value.match(/^...-...-...$/)) {
+          return 'xxx-xxx-xxx'
+        }
       }
-      if (!value.match(/^...-...-...$/)) {
-        return 'xxx-xxx-xxx'
+    },
+    password: {
+      rule (value) {
+        return !value && 'Introduce tu contraseña'
       }
-    }
-  },
-  password: {
-    rule (value) {
-      return !value && 'Introduce tu contraseña'
     }
   }
-}
-
-export default function Login ({ roles }) {
   const { handleSubmit, hasErrors, errors, setInput, getValue, setErrors } = useControlledForm({
     fields
   })
@@ -35,7 +34,7 @@ export default function Login ({ roles }) {
       json: data
     })
     if (response.data && response.data.ok) {
-      return router.push('/historial-anonimo')
+      return router.push('/followUp')
     }
     setErrors({
       username: 'Código anónimo no encontrado',
@@ -48,15 +47,11 @@ export default function Login ({ roles }) {
     <section className="hero is-primary">
       <div className="hero-body">
         <div className="container">
-          <h1 className="title">
-            Seguimiento
-          </h1>
-          <h2 className="subtitle">
-            Totalmente anónimo y seguro
-          </h2>
+          <h1 className="title">{translations.LoginTitle}</h1>
+          <h2 className="subtitle">{translations.LoginSubtitle}</h2>
           <form className="is-horizontal" onSubmit={handleSubmit(onSubmit)}>
             <div className="field">
-              <label className="label">Código anónimo</label>
+              <label className="label">{translations.userCode}</label>
               <div className="control has-icons-left">
                 <input
                   className={clsx('input', errors.username && 'is-danger')}
@@ -75,7 +70,7 @@ export default function Login ({ roles }) {
               }
             </div>
             <div className="field">
-              <label className="label">Contraseña</label>
+              <label className="label">{translations.password}</label>
               <div className="control has-icons-left">
                 <input
                   className={clsx('input', errors.password && 'is-danger')}

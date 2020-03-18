@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Logged from '../components/Logged'
 import storage from '../lib/storage'
 import isometricFetch from '../lib/isometricFetch'
 import redirect from 'next-redirect'
 import Link from 'next/link'
 export default function HistorialAnonimo ({ data }) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  })
   return (
     <>
       <Logged userCode={data.me.userCode} />
@@ -49,9 +52,9 @@ HistorialAnonimo.getInitialProps = async function getHistorialAnonimo (ctx) {
   let data
 
   if (typeof window !== 'undefined') {
-    data = storage.get('/historial-anonimo')
+    data = storage.get('/followUp')
   }
-  data = data || await isometricFetch(ctx, 'ultimo-diagnostico')
+  data = data || await isometricFetch(ctx, 'last')
 
   if (!data.me || !data.me.userCode) {
     redirect(ctx, '/')
