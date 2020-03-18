@@ -89,8 +89,7 @@ export default function Login ({ translations }) {
               }
             </div>
             <div className="field">
-            <label className="label">&nbsp;</label>
-
+              <label className="label">&nbsp;</label>
               <button disabled={hasErrors} className="button is-black">
                 Entrar {hasErrors}
               </button>

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import Login from '../components/Login'
 import useControlledForm from '../lib/useControlledForm'
 import { authenticatedFetch } from '../lib/fetch'
 import { useRouter } from 'next/router'
 import storage from '../lib/storage'
 import symptoms from '../config/symptoms.js'
-import LanguagePicker from './LanguagePicker'
+import Hero from './Hero'
 
 const fields = {}
 const defaultValues = {}
@@ -15,7 +15,8 @@ symptoms.forEach(symptom => {
   defaultValues[symptom.name] = symptom.default
 })
 
-export default function Index ({ translations, currentLanguage }) {
+export default function Index ({ translations, currentView }) {
+  const [isLoaing, setIsLoading] = useState(true)
   const {
     handleSubmit,
     setInput,
@@ -31,38 +32,24 @@ export default function Index ({ translations, currentLanguage }) {
       json
     })
     storage.set('/followUp', response)
-    router.push('/followUp')
+    router.push(translations.followUpUrl)
   }
 
-  useEffect(() => {
+  if (typeof window === 'object') {
     authenticatedFetch('last').then((res) => {
       if (!res.me || !res.me.userCode) {
+        setIsLoading(false)
         return
       }
       storage.set('/followUp', res)
-      router.push('/followUp')
+      router.push(translations.followUpUrl)
     })
-  }, [])
+  }
 
   return (
     <>
-      <section className="hero is-primary">
-        <div className="hero-body">
-          <div className="container">
-            <p id="openSourceDataInnovation">
-              <a href="https://github.com/hacknlove/stopCovid19" target="_blank" rel="noopener noreferrer">OpenSource</a><br /><a href="https://stopcovid19.s3.eu-west-3.amazonaws.com/csv/data.csv" target="_blank" rel="noopener noreferrer">OpenData</a><br /><a href="https://spectrum.chat/stopcovid19?tab=posts" target="_blank" rel="noopener noreferrer">OpenInnovation</a>
-            </p>
-            <br />
-            <LanguagePicker translations={translations} currentLanguage={currentLanguage} />
-            <h1 className="title">
-              {translations.title}
-            </h1>
-            <h2 className="subtitle">
-              {translations.subtitle}
-            </h2>
-          </div>
-        </div>
-      </section>
+      { isLoaing ? <div id="loader" /> : null}
+      <Hero translations={translations} currentView={currentView}/>
       <div className="section">
         <div className="container">
           <div className="tile is-ancestor">

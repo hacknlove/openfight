@@ -3,7 +3,8 @@ import copy from 'copy-text-to-clipboard'
 import { authenticatedFetch } from '../lib/fetch'
 import { useRouter } from 'next/router'
 
-export default function Nav ({ userCode }) {
+export default function Nav ({ userCode, translations }) {
+  console.log(translations)
   const router = useRouter()
   async function renovarContraseña () {
     const response = await authenticatedFetch('renovarPassword', {
@@ -44,15 +45,11 @@ export default function Nav ({ userCode }) {
     <section className="hero is-primary">
       <div className="hero-body">
         <div className="container">
-          <h1 className="title">
-            Seguimiento
-          </h1>
-          <h2 className="subtitle">
-            Totalmente anónimo y seguro
-          </h2>
+          <h1 className="title">{translations.LoginTitle}</h1>
+          <h2 className="subtitle">{translations.LoginSubtitle}</h2>
           <form className="is-horizontal">
             <div className="field">
-              <label className="label">Código anónimo</label>
+              <label className="label">{translations.userCode}</label>
               <div className="control has-icons-left">
                 <input className="input" type="username" placeholder="Código de usuario" readOnly value={userCode}/>
                 <span className="icon is-small is-left">
@@ -61,7 +58,7 @@ export default function Nav ({ userCode }) {
               </div>
             </div>
             <div className="field">
-              <label className="label">Contraseña</label>
+              <label className="label">{translations.password}</label>
               <div className="control has-icons-left">
                 <input readOnly className="input" type="password" placeholder="Contraseña" value="contraseña" />
                 <span className="icon is-small is-left">
@@ -71,9 +68,9 @@ export default function Nav ({ userCode }) {
             </div>
           </form>
           <div className="buttons">
-            <button onClick={renovarContraseña} type="button" className="button is-black">Renovar contraseña </button>
-            <button onClick={copiarAlPortapapeles} type="button" className="button is-black">Copiar al portapapeles </button>
-            <button onClick={cerrarSesion} type="button" className="button is-black">Cerrar sesión</button>
+            <button onClick={renovarContraseña} type="button" className="button is-black">{translations.NewPassword}</button>
+            <button onClick={copiarAlPortapapeles} type="button" className="button is-black">{translations.CopyToClipboard}</button>
+            <button onClick={cerrarSesion} type="button" className="button is-black">{translations.LogOut}</button>
           </div>
         </div>
       </div>

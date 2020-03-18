@@ -1,7 +1,8 @@
 import React from 'react'
-import translations from '../translations/spanish'
 import Index from '../components/Index'
+import translationsCommon from '../translations/common/english.js'
+import translationsView from '../translations/index/english.js'
 
 export default function Home () {
-  return <Index translations={translations} />
+  return <Index translations={{ ...translationsCommon, ...translationsView }} currentView="index"/>
 }

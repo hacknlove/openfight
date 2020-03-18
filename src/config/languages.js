@@ -1,6 +1,12 @@
 const languages = {
-  English: '/',
-  Español: '/es'
+  English: {
+    index: '/',
+    followUp: '/followUp'
+  },
+  Español: {
+    index: '/es',
+    followUp: '/seguimiento'
+  }
 }
 
 export default languages

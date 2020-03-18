@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import languages from '../config/languages'
 import Link from 'next/link'
 
-export default function LanguagePicker ({ translations, currentLanguage }) {
+export default function LanguagePicker ({ translations, currentView }) {
   const [isActive, setIsActive] = useState(false)
 
   return (
@@ -20,7 +20,7 @@ export default function LanguagePicker ({ translations, currentLanguage }) {
         <div className="dropdown-content">
           {
             Object.entries(languages).map(([label, url]) => (
-              <Link key={url} href={url}>
+              <Link key={label} href={url[currentView]}>
                 <a className="dropdown-item">
                   {label}
                 </a>

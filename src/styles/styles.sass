@@ -5,7 +5,7 @@ $navbar-breakpoint: 20px
 @import '../../node_modules/bulma-checkradio/dist/css/bulma-checkradio.sass'
 @import '../../node_modules/bulma-switch/dist/css/bulma-switch.sass'
 @import '../../node_modules/bulma-slider/dist/css/bulma-slider.sass'
-
+@import "../../node_modules/bulma/sass/utilities/mixins";
 .hidden-file-input
   position: absolute
   top: -100vh
@@ -55,3 +55,19 @@ form.is-horizontal
 
 html
   scroll-behavior: smooth
+
+  #loader
+    position: fixed
+    width: 100vw
+    height: 100vh
+    background: #fffa
+    z-index: 1000
+    pointer-events: none
+    &:after
+      @include loader
+      position: absolute
+      top: calc(50% - 2.5em)
+      left: calc(50% - 2.5em)
+      width: 5em
+      height: 5em
+      border-width: 0.25em
