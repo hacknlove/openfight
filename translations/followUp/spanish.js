@@ -1,12 +1,35 @@
 import React from 'react'
 
 const translations = {
+  followUpTitle: 'Tu diagnóstico básico:',
   additionalInformationUrl: '/informacion-adicional',
   updateSymptomsUrl: '/update-symptoms',
+  levels: {
+    VeryLow: 'Muy bajo',
+    Low: 'Bajo',
+    Moderate: 'Moderadp',
+    High: 'Alto'
+  },
+  extended: {
+    VeryLow: 'Very Low',
+    Low: 'Low',
+    Moderate: 'Moderate',
+    High () {
+      return (
+        <>
+          <h3 className="subtitle">Es altamente probable que tengas COVID-19</h3>
+          <ol className="helpSteps">
+            <li><strong>Debes llamar inmediatamente a las autoridades sanitarias y seguir sus indicaciones.</strong></li>
+            <li>No salgas de casa y evita el contacto con el resto de personas.</li>
+          </ol>
+        </>
+      )
+    }
+  },
   HelpNotImproved () {
     return (
       <>
-        <h3 className="subtitle">Tú diagnóstico básico:</h3>
+        <h3 className="subtitle">Información importante sobre el diagnóstico:</h3>
         <ol className="helpSteps">
           <li>Este diagnóstico solo se basa en los síntomas que has indicado.</li>
           <li><strong>Puedes mejorar el diagnóstico aportando información adicional como edad o género.</strong></li>

@@ -1,26 +1,33 @@
 import app, { switchMethod } from '../../server/managers/app'
 import randomStrings from '../../server/lib/randomString'
-import hashStrings from '../../server/lib/hashStrings'
 import jwt from 'jsonwebtoken'
 import joi from '@hapi/joi'
 import validateBodyFactory from '../../server/lib/validateBodyFactory'
 import { setCookie } from 'nookies'
-import requestIp from 'request-ip'
+import symptoms from '../../../config/symptoms'
+import diagnosis from '../../../config/diagnosis'
 
-const schema = joi.object({
-  Fiebre: joi.string(),
-  Tos: joi.string(),
-  Moco: joi.string(),
-  CongestiónNasal: joi.string(),
-  Estornudos: joi.string(),
-  DolorDeGarganta: joi.string(),
-  DificultadParaRespirar: joi.string(),
-  Flema: joi.string(),
-  Vomito: joi.string(),
-  Diarrea: joi.string(),
-  Cansancio: joi.string(),
-  Debilidad: joi.string()
-})
+function prepareSchema (symptoms) {
+  const schema = {
+  }
+
+  symptoms.forEach(symptom => {
+    switch (symptom.type) {
+      case 'select': {
+        schema[symptom.name] = joi.string().valid(...symptom.options)
+        break
+      }
+      case 'steps': {
+        schema[symptom.name] = joi.number().min(symptom.min).max(symptom.max)
+        break
+      }
+    }
+  })
+
+  return joi.object(schema)
+}
+
+const schema = prepareSchema(symptoms)
 
 function createUserId ({
   set
@@ -28,27 +35,17 @@ function createUserId ({
   set.userCode = `${randomStrings(3)}-${randomStrings(3)}-${randomStrings(3)}`
 }
 
-function hashPassword ({
-  set
-}) {
-  set.plainPassword = randomStrings(8)
-  set.password = hashStrings(set.plainPassword)
-}
-
 async function insertUser ({
   set,
   get: {
     userCode,
-    password,
-    plainPassword
+    password
   },
   mongo
-}, req) {
+}) {
   set.insertion = mongo.collection('users').insertOne({
     userCode,
-    password,
-    plainPassword,
-    ip: [requestIp.getClientIp(req)]
+    password
   })
 }
 
@@ -77,24 +74,6 @@ async function insertToken ({
   })
 }
 
-const positivos = new Set([
-  'Fiebre',
-  'Tos',
-  'DificultadParaRespirar',
-  'Flema',
-  'Cansancio',
-  'Debilidad'
-])
-
-const negativos = new Set([
-  'Moco',
-  'CongestiónNasal',
-  'Estornudos',
-  'DolorDeGarganta',
-  'Vomito',
-  'Diarrea'
-])
-
 async function getId ({
   set,
   get: { insertion },
@@ -118,49 +97,39 @@ async function getId ({
   return response('unknown', 400)
 }
 
-async function insertSintomas ({
+async function getDiagnostic ({
+  get: {
+    body: symptoms
+  },
+  set
+}) {
+  set.diagnosis = await diagnosis(symptoms)
+}
+
+async function insertHistory ({
   get: {
     userId,
-    body
+    body: symptoms,
+    diagnosis
   },
   mongo,
   set
-}, req) {
-  let sum = 0
-
-  for (const [key, value] of Object.entries(body)) {
-    if (value === 'No sé') {
-      delete body[key]
-      continue
-    }
-    const v = +value
-    body[key] = v
-
-    if (positivos.has(key)) {
-      sum += +v
-    } else if (negativos.has(key)) {
-      sum -= v * 3
-    } else {
-      console.error('Error, por ahora no tenemos parametros neutros')
-    }
-    set.diagnostico = (sum + 1800) / 24
-  }
-  set.Sintomas = mongo.collection('sintomas').insertOne({
-    ...body,
+}) {
+  set.history = mongo.collection('history').insertOne({
+    symptoms,
     userId,
-    diagnostico: set.diagnostico,
-    ip: requestIp.getClientIp(req),
+    diagnosis,
     date: new Date()
   })
 }
 
 async function waitInserts ({
   get: {
-    Sintomas,
+    history,
     insertToken
   }
 }) {
-  await Sintomas
+  await history
   await insertToken
 }
 
@@ -181,24 +150,24 @@ function setCookieToken ({
 function response ({
   get: {
     userCode,
-    diagnostico
+    history
   },
   control: { response }
 }, req) {
   req.user = { userCode }
-  response({ diagnostico })
+  response({ history })
 }
 
 export default switchMethod({
   POST: app(
     validateBodyFactory(schema),
     createUserId,
-    hashPassword,
     insertUser,
     getId,
     createToken,
     insertToken,
-    insertSintomas,
+    getDiagnostic,
+    insertHistory,
     waitInserts,
     setCookieToken,
     response

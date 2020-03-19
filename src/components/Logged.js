@@ -12,32 +12,18 @@ export default function Nav ({ userCode, translations }) {
     })
     if (response.data && response.data.ok) {
       copy(`userCode: ${userCode} password: ${response.data.password}`)
-      alert('Contraseña renovada y copiada al portapapeles. Todas las demás sesiones cerradas')
+      alert('La nueva contraseña ha sido copiada al portapapeles')
     } else {
-      alert('Error renovando contraseña.')
+      alert(translations.Error)
     }
   }
 
-  async function copiarAlPortapapeles () {
-    const response = await authenticatedFetch('copiarPassword', {
-      method: 'GET'
-    })
-    if (response.data && response.data.ok) {
-      copy(`userCode: ${userCode} password: ${response.data.password}`)
-      alert('Contraseña copiada al portapapeles')
-    } else {
-      alert('Error copiando contraseña.')
-    }
-  }
-
-  async function cerrarSesion () {
-    const response = await authenticatedFetch('salir', {
+  async function logout () {
+    const response = await authenticatedFetch('logout', {
       method: 'POST'
     })
     if (response.data && response.data.ok) {
       router.push('/')
-    } else {
-      alert('Error saliendo')
     }
   }
 
@@ -68,9 +54,8 @@ export default function Nav ({ userCode, translations }) {
             </div>
           </form>
           <div className="buttons">
-            <button onClick={renovarContraseña} type="button" className="button is-black">{translations.NewPassword}</button>
-            <button onClick={copiarAlPortapapeles} type="button" className="button is-black">{translations.CopyToClipboard}</button>
-            <button onClick={cerrarSesion} type="button" className="button is-black">{translations.LogOut}</button>
+            <button onClick={renovarContraseña} type="button" className="button is-black">{translations.GetNewPassword}</button>
+            <button onClick={logout} type="button" className="button is-black">{translations.LogOut}</button>
           </div>
         </div>
       </div>

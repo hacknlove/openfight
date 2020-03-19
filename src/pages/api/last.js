@@ -11,11 +11,10 @@ async function findLastDiagnostico ({
     _id
   }
 }) {
-  set.diagnostico = await mongo.collection('sintomas').find({
+  set.diagnostico = await mongo.collection('history').find({
     userId: _id
   }, {
     projection: {
-      ip: 0,
       _id: 0,
       userId: 0
     }

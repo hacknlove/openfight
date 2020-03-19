@@ -30,10 +30,11 @@ const translations = {
   userCode: 'Código de usuario',
   password: 'Contraseña',
   Languages: 'Idiomas',
-  NewPassword: 'Nieva contraseña',
-  CopyToClipboard: 'Copiar al portapapeles',
-  LogOut: 'Salir'
-
+  GetNewPassword: 'Obtener nueva contraseña',
+  LogOut: 'Salir',
+  Error: 'Error. Inténtalo otra vez',
+  PasswordGenerated: 'La nueva contraseña ha sido copiada al portapapeles',
+  Date: 'Fecha'
 }
 
 export default translations

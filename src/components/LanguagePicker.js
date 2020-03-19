@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import languages from '../config/languages'
+import languages from '../../config/languages'
 import Link from 'next/link'
 
 export default function LanguagePicker ({ translations, currentView }) {

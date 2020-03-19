@@ -2,14 +2,19 @@ const translations = {
   title: 'stop-COVID-19',
   subtitle: 'anonymous tool for diagnostic and follow-up',
   Syntoms: 'Syntoms',
-  steps: [
-    'Not Answer',
-    'No',
-    'Little',
-    'Some',
-    'Quite',
-    'A Lot'
-  ],
+  options: {
+    NotAnswer: 'Not answered',
+    No: 'No',
+    Little: 'Little',
+    Some: 'Some',
+    Quite: 'Quite',
+    ALot: 'A Lot',
+    Never: 'Never',
+    AFewTimes: 'A few Times',
+    SomeTimes: 'Some Times',
+    ManyTimes: 'Many Times',
+    Always: 'Always'
+  },
   symptoms: {
     fever: 'Fever',
     cough: 'Cough',
@@ -30,9 +35,11 @@ const translations = {
   userCode: 'User code',
   password: 'Password',
   Languages: 'Languages',
-  NewPassword: 'New Password',
-  CopyToClipboard: 'Copy to Clipboard',
-  LogOut: 'Log out'
+  GetNewPassword: 'Get new Password',
+  LogOut: 'Log out',
+  Error: 'Error. Try again',
+  PasswordGenerated: 'The new password has been copied to the clipboard',
+  Date: 'Date'
 }
 
 export default translations
