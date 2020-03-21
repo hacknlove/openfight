@@ -9,8 +9,6 @@ export default function HistorialAnonimo ({ data, translations, currentView }) {
     window.scrollTo(0, 0)
   })
 
-  console.log(data)
-
   const symptoms = data.data.symptoms
   const diagnosis = data.data.diagnosis
   const Extended = translations.extended[diagnosis.label]

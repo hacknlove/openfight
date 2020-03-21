@@ -1,7 +1,9 @@
 import fetch from 'isomorphic-unfetch'
 import { parseCookies } from 'nookies'
+import absoluteUrl from 'next-absolute-url'
 
 export default async function isometricFetch (ctx, url, options = {}) {
+  const { origin } = absoluteUrl(ctx.req)
   const isServer = typeof window === 'undefined'
 
   if (isServer) {
@@ -14,7 +16,7 @@ export default async function isometricFetch (ctx, url, options = {}) {
     options.credentials = 'include'
   }
 
-  const response = await fetch(`${process.env.URL}api/${url}`, options).catch(err => ({ err }))
+  const response = await fetch(`${origin}/api/${url}`, options).catch(err => ({ err }))
   if (!response || response.err || !response.ok) {
     return {}
   }

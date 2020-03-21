@@ -40,7 +40,6 @@ function closeSessions ({
     randomString
   }
 }) {
-  console.log(randomString)
   mongo.collection('tokens').removeMany({ userCode, randomString: { $ne: randomString } })
 }
 

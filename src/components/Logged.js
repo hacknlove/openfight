@@ -4,7 +4,6 @@ import { authenticatedFetch } from '../lib/fetch'
 import { useRouter } from 'next/router'
 
 export default function Nav ({ userCode, translations }) {
-  console.log(translations)
   const router = useRouter()
   async function renovarContraseña () {
     const response = await authenticatedFetch('renovarPassword', {
