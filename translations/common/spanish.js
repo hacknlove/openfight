@@ -1,5 +1,5 @@
 const translations = {
-  title: 'stop-COVID-19',
+  title: 'openFight - Diagnóstico',
   subtitle: 'Herramienta anónima para el diagnóstico y la monitoriazión',
   Syntoms: 'Síntomas',
   options: {
@@ -29,6 +29,10 @@ const translations = {
     fatigue: 'Cansancio',
     lackOfAppetite: 'Falta de apetito'
   },
+  errors: {
+    unknown: 'Error desconocido. Prueba otra vez',
+    badParameters: 'Parámetro no válido.'
+  },
   Next: 'Siguiente',
   LoginTitle: 'Seguimiento',
   LoginSubtitle: 'Completamente anónimo y seguro',
@@ -39,7 +43,8 @@ const translations = {
   LogOut: 'Salir',
   Error: 'Error. Inténtalo otra vez',
   PasswordGenerated: 'La nueva contraseña ha sido copiada al portapapeles',
-  Date: 'Fecha'
+  Date: 'Fecha',
+  loading: 'Cargando'
 }
 
 export default translations

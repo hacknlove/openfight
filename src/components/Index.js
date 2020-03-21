@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import storage from '../lib/storage'
 import symptoms from '../../config/symptoms.js'
 import Hero from './Hero'
+import Alerts from './Alerts'
+
 const fields = {}
 const defaultValues = {}
 
@@ -77,10 +79,15 @@ export default function Index ({ translations, currentView }) {
   const router = useRouter()
 
   async function onSubmit (json) {
+    const info = Alerts.addAlert(translations.loading, 'is-info')
     const response = await authenticatedFetch('new', {
       method: 'POST',
       json
     })
+    info.delete()
+    if (response.data.error) {
+      return Alerts.addAlert(translations.errors[response.error] || translations.errors.unknown, 'is-danger is-large')
+    }
     storage.set('/followUp', response)
     router.push(translations.followUpUrl)
   }

@@ -24,7 +24,7 @@ function prepareSchema (symptoms) {
     }
   })
 
-  return joi.object(schema)
+  return joi.object(schema).min(1)
 }
 
 const schema = prepareSchema(symptoms)

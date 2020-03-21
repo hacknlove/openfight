@@ -1,1 +1,1 @@
-ngrok http -subdomain stopcovid19 3000
+ngrok http -subdomain openfight 3000

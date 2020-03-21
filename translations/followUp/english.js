@@ -1,6 +1,7 @@
 import React from 'react'
 
 const translations = {
+  title: 'openFight - diagnosis',
   followUpTitle: 'Your basic diagnosis:',
   additionalInformationUrl: '/additional-information',
   updateSymptomsUrl: '/update-symptoms',
@@ -11,9 +12,40 @@ const translations = {
     High: 'High'
   },
   extended: {
-    VeryLow: 'Very Low',
-    Low: 'Low',
-    Moderate: 'Moderate',
+    VeryLow () {
+      return (
+        <>
+          <h3 className="subtitle">It seems that you do not have COVID-19</h3>
+          <ol className="helpSteps">
+            <li><strong>You could be incubating it, so come back if your symptoms change.</strong></li>
+            <li>Do not leave your home unless you really need it, because you could get infected.</li>
+            <li>Please wait until the authorities say the risk of going out was low.</li>
+          </ol>
+        </>
+      )
+    },
+    Low () {
+      return (
+        <>
+          <h3 className="subtitle">You could have a low COVID-19</h3>
+          <ol className="helpSteps">
+            <li><strong>It seems you have not COVID-19, but you could have it and being almost not affected.</strong></li>
+            <li>Please, stay at home to minimize the risk or be infected or infect others.</li>
+          </ol>
+        </>
+      )
+    },
+    Moderate () {
+      return (
+        <>
+          <h3 className="subtitle">You could have COVID-19</h3>
+          <ol className="helpSteps">
+            <li><strong>Please. call the health authorities to get further instructions.</strong></li>
+            <li>In the meanwhile, keep yourself at home, and avoid the contact with any other people.</li>
+          </ol>
+        </>
+      )
+    },
     High () {
       return (
         <>

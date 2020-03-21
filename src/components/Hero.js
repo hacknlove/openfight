@@ -1,9 +1,13 @@
 import React from 'react'
 import LanguagePicker from './LanguagePicker'
+import Head from 'next/head'
 
 export default function Hero ({ translations, currentView = '/' }) {
   return (
     <section className="hero is-primary">
+      <Head>
+        <title>{translations.title}</title>
+      </Head>
       <div className="hero-body">
         <div className="container">
           <p id="openSourceDataInnovation">

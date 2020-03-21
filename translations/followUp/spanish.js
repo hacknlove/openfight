@@ -1,6 +1,7 @@
 import React from 'react'
 
 const translations = {
+  title: 'openFight - diagnóstico',
   followUpTitle: 'Tu diagnóstico básico:',
   additionalInformationUrl: '/informacion-adicional',
   updateSymptomsUrl: '/update-symptoms',
@@ -11,9 +12,42 @@ const translations = {
     High: 'Alto'
   },
   extended: {
-    VeryLow: 'Very Low',
-    Low: 'Low',
-    Moderate: 'Moderate',
+    VeryLow () {
+      return (
+        <>
+          <h3 className="subtitle">Parece que no tienes COVID-19</h3>
+          <ol className="helpSteps">
+            <li><strong>Pero podrías estar incubándolo, así que actualiza tus síntomas si los síntomas cambian.</strong></li>
+            <li>No salgas de casa a no ser que sea estrictamente necesario, porque podrías contagiarte.</li>
+            <li>Espera hasta que las autoridades indiquen que el riesgo es bajo.</li>
+          </ol>
+        </>
+      )
+    },
+    Low () {
+      return (
+        <>
+          <h3 className="subtitle">Podrías tener un COVID-19 leve</h3>
+          <ol className="helpSteps">
+            <li><strong>Parece que no tienes COVID-19, pero podrías tenerlo y que te afecte poco.</strong></li>
+            <li>Por favor, permanece en casa para minimizar el riesgo de infectarte o infectar a otros.</li>
+            <li>Actualiza tus síntomas si cambian.</li>
+          </ol>
+        </>
+      )
+    },
+    Moderate () {
+      return (
+        <>
+          <h3 className="subtitle">Puede que tengas COVID-19</h3>
+          <ol className="helpSteps">
+            <li><strong>Por favor, llama a las autoridades sanitarias para obtener más instrucciones.</strong></li>
+            <li>En cualquier caso, quédate en casa y evita el contacto con otras personas</li>
+            <li>Actualiza tus síntomas si cambian.</li>
+          </ol>
+        </>
+      )
+    },
     High () {
       return (
         <>
@@ -21,6 +55,7 @@ const translations = {
           <ol className="helpSteps">
             <li><strong>Debes llamar inmediatamente a las autoridades sanitarias y seguir sus indicaciones.</strong></li>
             <li>No salgas de casa y evita el contacto con el resto de personas.</li>
+            <li>Actualiza tus síntomas si cambian.</li>
           </ol>
         </>
       )

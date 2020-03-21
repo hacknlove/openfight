@@ -1,5 +1,5 @@
 const translations = {
-  title: 'stop-COVID-19',
+  title: 'openFight-COVID-19',
   subtitle: 'anonymous tool for diagnostic and follow-up',
   Syntoms: 'Syntoms',
   options: {
@@ -29,6 +29,10 @@ const translations = {
     fatigue: 'Fatigue',
     lackOfAppetite: 'Lack of Appetite'
   },
+  errors: {
+    unknown: 'Unknown error. Try Again',
+    badParameters: 'Parameters not valid.'
+  },
   Next: 'Next',
   LoginTitle: 'Follow Up',
   LoginSubtitle: 'Completely anonymous and secure',
@@ -39,7 +43,8 @@ const translations = {
   LogOut: 'Log out',
   Error: 'Error. Try again',
   PasswordGenerated: 'The new password has been copied to the clipboard',
-  Date: 'Date'
+  Date: 'Date',
+  loading: 'Loading'
 }
 
 export default translations
