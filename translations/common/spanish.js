@@ -1,7 +1,7 @@
 const translations = {
   title: 'openFight - Diagnóstico',
   subtitle: 'Herramienta anónima para el diagnóstico y la monitoriazión',
-  Syntoms: 'Síntomas',
+  Symptoms: 'Síntomas',
   options: {
     NotAnswer: 'No sabe, no contesta',
     No: 'No',

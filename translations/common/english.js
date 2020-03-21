@@ -1,7 +1,7 @@
 const translations = {
   title: 'openFight-COVID-19',
   subtitle: 'anonymous tool for diagnostic and follow-up',
-  Syntoms: 'Syntoms',
+  Symptoms: 'Symptoms',
   options: {
     NotAnswer: 'Not answered',
     No: 'No',

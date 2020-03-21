@@ -1,11 +1,15 @@
 const languages = {
   English: {
     index: '/',
-    followUp: '/followUp'
+    followUp: '/followUp',
+    additionalInformation: '/additional-information',
+    updateSymptoms: '/update-symptoms'
   },
   Español: {
     index: '/es',
-    followUp: '/seguimiento'
+    followUp: '/seguimiento',
+    additionalInformation: '/informacion-adicional',
+    updateSymptoms: '/actualizar-sintomas'
   }
 }
 

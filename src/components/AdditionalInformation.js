@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Logged from '../components/Logged'
+import Logged from './Logged'
 import Link from 'next/link'
 import Hero from './Hero'
 import clsx from 'clsx'
