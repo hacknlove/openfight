@@ -2,14 +2,19 @@ const translations = {
   title: 'stop-COVID-19',
   subtitle: 'Herramienta anónima para el diagnóstico y la monitoriazión',
   Syntoms: 'Síntomas',
-  steps: [
-    'No sabe/no contesta',
-    'No',
-    'Un poco',
-    'Algo',
-    'Bastante',
-    'Mucho'
-  ],
+  options: {
+    NotAnswer: 'No sabe, no contesta',
+    No: 'No',
+    Little: 'Un poco',
+    Some: 'Algo',
+    Quite: 'Bastante',
+    ALot: 'Mucho',
+    Never: 'Nunca',
+    AFewTimes: 'Pocas veces',
+    SomeTimes: 'Algunas veces',
+    ManyTimes: 'Muchas veces',
+    Always: 'Todo el rato'
+  },
   symptoms: {
     fever: 'Fiebre',
     cough: 'Tos',

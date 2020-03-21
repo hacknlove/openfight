@@ -61,7 +61,7 @@ export default function HistorialAnonimo ({ data, translations, currentView }) {
                       Object.entries(data.data.symptoms).filter(([symptom, value]) => value !== 'NotAnswer').map(([symptom, value]) => (
                         <div key={symptom} className="control">
                           <div className="tags has-addons">
-                            <span className="tag is-medium  is-black">{translations.symptoms[symptom]}</span>
+                            <span className="tag is-medium ">{translations.symptoms[symptom]}</span>
                             <span className="tag is-medium ">{translations.options[value]}</span>
                           </div>
                         </div>
