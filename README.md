@@ -1,31 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+# OpenFight v1.0.0 WIP
 
-## Getting Started
+# Introduction
 
-First, run the development server:
+The main goal of this project is to be as easily customizable as possible, so every community (nation, city, or whatever) that needs an application allow their members to have access to quick an auto-diagnosis tool, and at the same time that allows the community to gather big-data around the propagation of the disease, could just adapt the tests, symptoms and formulas to their own needs, without having to develop a whole thing from scratch.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+All the texts are placed in the folder `translations/` where there is a folder for each view, and other more for the common things.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The language picker is configured in `config/languages.js`, there you can select the available languages, and the url correspondant to each view.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The symptoms are configured in `config/symptoms.js`, currently there are only two types of components, select and slider.
 
-## Learn More
+The file `config/diagnosis.js` manage how the diagnosis is computed.
 
-To learn more about Next.js, take a look at the following resources:
+In the file `config/bigData.js` will be placed the settings on how the data is shared.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The style can be tuned with the files `config/pre-style.sass` that is loaded before any other `.sass` and can be used to initialize bulma variables, and the file `config/post-style.sass` that is the last `sass` loaded so you can override whatever you want.
 
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
+The assets, like logos, images and fonts, go in the folder `public`
 
-## Deploy on ZEIT Now
+With all this, I hope you do not need to go to `src/` and work with the main code. Bou if you do that, you are very welcome to bring your improvements back, so more people can enjoy them.
 
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Local deployment, for development.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# stopCovid19
+Please calm. I'm still working on the code and the documentation.
