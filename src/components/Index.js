@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Login from '../components/Login'
 import useControlledForm from '../lib/useControlledForm'
 import { authenticatedFetch } from '../lib/fetch'
 import { useRouter } from 'next/router'
-import storage from '../lib/storage'
 import symptoms from '../../config/symptoms.js'
 import Hero from './Hero'
 import Alerts from './Alerts'
@@ -67,7 +66,7 @@ function Control ({ symptom, getValue, setInput, translations }) {
 }
 
 export default function Index ({ translations, currentView }) {
-  const [isLoaing, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const {
     handleSubmit,
     setInput,
@@ -79,33 +78,21 @@ export default function Index ({ translations, currentView }) {
   const router = useRouter()
 
   async function onSubmit (json) {
-    const info = Alerts.addAlert(translations.loading, 'is-info')
+    setIsLoading(true)
     const response = await authenticatedFetch('new', {
       method: 'POST',
       json
     })
-    info.delete()
     if (response.data.error) {
+      setIsLoading(false)
       return Alerts.addAlert(translations.errors[response.error] || translations.errors.unknown, 'is-danger is-large')
     }
-    storage.set('/followUp', response)
     router.push(translations.followUpUrl)
   }
 
-  useEffect(() => {
-    authenticatedFetch('last').then((res) => {
-      if (!res.me || !res.me.userCode) {
-        setIsLoading(false)
-        return
-      }
-      storage.set('/followUp', res)
-      router.push(translations.followUpUrl)
-    })
-  }, [])
-
   return (
     <>
-      { isLoaing ? <div id="loader" /> : null}
+      { isLoading ? <div id="loader" /> : null}
       <Hero translations={translations} currentView={currentView}/>
       <div className="section">
         <div className="container">

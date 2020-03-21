@@ -9,6 +9,9 @@ export default function HistorialAnonimo ({ data, translations, currentView }) {
     window.scrollTo(0, 0)
   })
 
+  console.log(data)
+
+  const symptoms = data.data.symptoms
   const diagnosis = data.data.diagnosis
   const Extended = translations.extended[diagnosis.label]
 
@@ -58,7 +61,7 @@ export default function HistorialAnonimo ({ data, translations, currentView }) {
                   <h2 className="subtitle">{translations.SymptomsTitle}</h2>
                   <div className="field is-grouped is-grouped-multiline">
                     {
-                      Object.entries(data.data.symptoms).filter(([symptom, value]) => value !== 'NotAnswer').map(([symptom, value]) => (
+                      Object.entries(symptoms).filter(([symptom, value]) => value !== 'NotAnswer').map(([symptom, value]) => (
                         <div key={symptom} className="control">
                           <div className="tags has-addons">
                             <span className="tag is-medium ">{translations.symptoms[symptom]}</span>

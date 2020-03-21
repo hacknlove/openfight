@@ -3,7 +3,7 @@ import app, { switchMethod } from '../../server/managers/app'
 import { authenticate } from '../../server/managers/passport'
 import validateUser from '../../server/lib/validateUser'
 
-async function findLastDiagnostico ({
+async function findLastHistory ({
   mongo,
   set
 }, {
@@ -11,7 +11,7 @@ async function findLastDiagnostico ({
     _id
   }
 }) {
-  set.diagnostico = await mongo.collection('history').find({
+  set.history = await mongo.collection('history').find({
     userId: _id
   }, {
     projection: {
@@ -29,17 +29,17 @@ function response ({
     response
   },
   get: {
-    diagnostico
+    history
   }
 }) {
-  response(diagnostico)
+  response(history)
 }
 
 export default switchMethod({
   GET: app(
     authenticate('jwt', { session: false }),
     validateUser,
-    findLastDiagnostico,
+    findLastHistory,
     response
   )
 })
