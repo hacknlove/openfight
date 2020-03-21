@@ -115,21 +115,23 @@ async function insertHistory ({
   mongo,
   set
 }) {
-  set.history = mongo.collection('history').insertOne({
+  set.history = {
     symptoms,
     userId,
     diagnosis,
     date: new Date()
-  })
+  }
+  set.historyInsert = mongo.collection('history').insertOne(set.history)
+
 }
 
 async function waitInserts ({
   get: {
-    history,
+    historyInsert,
     insertToken
   }
 }) {
-  await history
+  await historyInsert
   await insertToken
 }
 
