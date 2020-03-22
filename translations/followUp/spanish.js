@@ -2,7 +2,8 @@ import React from 'react'
 
 const translations = {
   title: 'openFight - diagnóstico',
-  followUpTitle: 'Tu diagnóstico básico:',
+  followUpTitleBasic: 'Tu diagnóstico básico:',
+  followUpTitleExtended: 'Tu diagnóstico addicional:',
   additionalInformationUrl: '/informacion-adicional',
   updateSymptomsUrl: '/actualizar-sintomas',
   levels: {
@@ -74,7 +75,8 @@ const translations = {
       </>
     )
   },
-  additionalInformation: 'Información adicional',
+  additionalInformation: 'Añadir información adicional',
+  yourAdditionalInformation: 'Tu información adicional',
   updateSymptoms: 'Actualizar síntomas'
 }
 

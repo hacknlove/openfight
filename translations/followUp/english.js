@@ -2,7 +2,8 @@ import React from 'react'
 
 const translations = {
   title: 'openFight - diagnosis',
-  followUpTitle: 'Your basic diagnosis:',
+  followUpTitleBasic: 'Your basic diagnosis:',
+  followUpTitleExtended: 'Your basic diagnosis:',
   additionalInformationUrl: '/additional-information',
   updateSymptomsUrl: '/update-symptoms',
   levels: {
@@ -62,7 +63,7 @@ const translations = {
   HelpNotImproved () {
     return (
       <>
-        <h3 className="subtitle">Important information about the diagnosis</h3>
+        <h3 className="subtitle">Regarding the <strong>basic  diagnosis</strong></h3>
         <ol className="helpSteps">
           <li>This diagnosis is only based on the symptoms you have indicated.</li>
           <li><strong>You can improve the diagnosis by providing additional information such as age or gender.</strong></li>
@@ -72,7 +73,21 @@ const translations = {
       </>
     )
   },
-  additionalInformation: 'Additional Information',
+  HelpImproved () {
+    return (
+      <>
+        <h3 className="subtitle">About the <strong>extended diagnosis</strong></h3>
+        <ol className="helpSteps">
+          <li>This diagnosis is based on the symptoms you have indicated and the additional information you have provided.</li>
+          <li><strong>The more accurate and complete information, the better diagnosis.</strong></li>
+          <li>To improve even more your improve diagnosis, update your symptoms periodically.</li>
+          <li>All this data, anonymously treated will be used to help you and also others.</li>
+        </ol>
+      </>
+    )
+  },
+  additionalInformation: 'Add additional Information',
+  yourAdditionalInformationUrl: 'Your additional Information',
   updateSymptoms: 'Update Symptoms'
 }
 

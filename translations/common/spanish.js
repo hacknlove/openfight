@@ -2,19 +2,7 @@ const translations = {
   title: 'openFight - Diagnóstico',
   subtitle: 'Herramienta anónima para el diagnóstico y la monitoriazión',
   Symptoms: 'Síntomas',
-  options: {
-    NotAnswer: 'No sabe, no contesta',
-    No: 'No',
-    Little: 'Un poco',
-    Some: 'Algo',
-    Quite: 'Bastante',
-    ALot: 'Mucho',
-    Never: 'Nunca',
-    AFewTimes: 'Pocas veces',
-    SomeTimes: 'Algunas veces',
-    ManyTimes: 'Muchas veces',
-    Always: 'Todo el rato'
-  },
+  followUpUrl: '/seguimiento',
   symptoms: {
     fever: 'Fiebre',
     cough: 'Tos',
@@ -27,7 +15,20 @@ const translations = {
     vomit: 'Vomito',
     diarrhea: 'Diarrea',
     fatigue: 'Cansancio',
-    lackOfAppetite: 'Falta de apetito'
+    lackOfAppetite: 'Falta de apetito',
+    options: {
+      NotAnswer: 'No sabe, no contesta',
+      No: 'No',
+      Little: 'Un poco',
+      Some: 'Algo',
+      Quite: 'Bastante',
+      ALot: 'Mucho',
+      Never: 'Nunca',
+      AFewTimes: 'Pocas veces',
+      SomeTimes: 'Algunas veces',
+      ManyTimes: 'Muchas veces',
+      Always: 'Todo el rato'
+    }
   },
   errors: {
     unknown: 'Error desconocido. Prueba otra vez',

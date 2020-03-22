@@ -2,7 +2,6 @@ import React from 'react'
 
 const translations = {
   title: 'OpenFight - start',
-  followUpUrl: '/followUp',
   HelpIndex () {
     return (
       <>

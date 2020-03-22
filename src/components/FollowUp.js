@@ -3,11 +3,14 @@ import Logged from '../components/Logged'
 import Link from 'next/link'
 import Hero from './Hero'
 import clsx from 'clsx'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
-export default function HistorialAnonimo ({ data, translations, currentView }) {
+export default function HistorialAnonimo ({ data, translations, currentView, dataLocale }) {
   useEffect(() => {
     window.scrollTo(0, 0)
   })
+
+  console.log(data)
 
   const symptoms = data.data.symptoms
   const diagnosis = data.data.diagnosis
@@ -21,16 +24,31 @@ export default function HistorialAnonimo ({ data, translations, currentView }) {
           <div className="tile is-ancestor">
             <div className="tile is-parent is-baseline">
               <div className="tile is-child notification is-light">
-                <translations.HelpNotImproved />
-                <Link href={translations.additionalInformationUrl}>
-                  <button className="button is-black is-large">{translations.additionalInformation}</button>
-                </Link>
+                {
+                  data.me.additionalInformation
+                    ? (
+                      <>
+                        <translations.HelpImproved />
+                        <Link href={translations.additionalInformationUrl}>
+                          <button className="button is-black is-large">{translations.yourAdditionalInformationUrl}</button>
+                        </Link>
+                      </>
+                    )
+                    : (
+                      <>
+                        <translations.HelpNotImproved />
+                        <Link href={translations.additionalInformationUrl}>
+                          <button className="button is-black is-large">{translations.additionalInformation}</button>
+                        </Link>
+                      </>
+                    )
+                }
               </div>
             </div>
 
             <div className="tile is-parent is-baseline">
               <div className="tile is-child box">
-                <h2 className="subtitle">{translations.followUpTitle}</h2>
+                <h2 className="subtitle">{data.me.additionalInformation ? translations.followUpTitleExtended : translations.followUpTitleBasic}</h2>
                 <h1 className="title">{(diagnosis.value * 100).toFixed(2)}% - {translations.levels[diagnosis.label]}</h1>
                 <progress className={clsx('progress', 'is-large', {
                   'is-success': diagnosis.label === 'VeryLow',
@@ -49,7 +67,7 @@ export default function HistorialAnonimo ({ data, translations, currentView }) {
 
                 <div className="notification has-background-grey-lighter">
                   <p>
-                    {new Date(data.data.date).toLocaleString()}
+                    {formatDistanceToNow(new Date(data.data.date), { locale: dataLocale })}
                   </p>
                   <h2 className="subtitle">{translations.SymptomsTitle}</h2>
                   <div className="field is-grouped is-grouped-multiline">
@@ -58,7 +76,7 @@ export default function HistorialAnonimo ({ data, translations, currentView }) {
                         <div key={symptom} className="control">
                           <div className="tags has-addons">
                             <span className="tag is-medium ">{translations.symptoms[symptom]}</span>
-                            <span className="tag is-medium ">{translations.options[value]}</span>
+                            <span className="tag is-medium ">{translations.symptoms.options[value]}</span>
                           </div>
                         </div>
                       ))

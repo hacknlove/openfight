@@ -36,7 +36,8 @@ passport.use(new Strategy({
     userCode: jwtPayload.sub
   }, {
     projection: {
-      userCode: 1
+      userCode: 1,
+      additionalInformation: 1
     }
   })
 

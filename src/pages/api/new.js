@@ -11,15 +11,23 @@ function prepareSchema (symptoms) {
   const schema = {
   }
 
-  symptoms.forEach(symptom => {
-    switch (symptom.type) {
+  symptoms.forEach(control => {
+    switch (control.type) {
       case 'select': {
-        schema[symptom.name] = joi.string().valid(...symptom.options)
+        schema[control.name] = joi.string().valid(...control.options)
         break
       }
-      case 'steps': {
-        schema[symptom.name] = joi.number().min(symptom.min).max(symptom.max)
+      case 'steps':
+      case 'number': {
+        schema[control.name] = joi.number().min(control.min).max(control.max)
         break
+      }
+      case 'text': {
+        schema[control.name] = joi.string()
+        break
+      }
+      case 'multi': {
+        schema[control.name] = joi.array().items(joi.string().valid(...control.options))
       }
     }
   })

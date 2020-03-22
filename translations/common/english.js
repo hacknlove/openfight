@@ -2,19 +2,7 @@ const translations = {
   title: 'openFight-COVID-19',
   subtitle: 'anonymous tool for diagnostic and follow-up',
   Symptoms: 'Symptoms',
-  options: {
-    NotAnswer: 'Not answered',
-    No: 'No',
-    Little: 'Little',
-    Some: 'Some',
-    Quite: 'Quite',
-    ALot: 'A Lot',
-    Never: 'Never',
-    AFewTimes: 'A few Times',
-    SomeTimes: 'Some Times',
-    ManyTimes: 'Many Times',
-    Always: 'Always'
-  },
+  followUpUrl: '/seguimiento',
   symptoms: {
     fever: 'Fever',
     cough: 'Cough',
@@ -27,7 +15,20 @@ const translations = {
     vomit: 'Vomit',
     diarrhea: 'Diarrhea',
     fatigue: 'Fatigue',
-    lackOfAppetite: 'Lack of Appetite'
+    lackOfAppetite: 'Lack of Appetite',
+    options: {
+      NotAnswer: 'Not answered',
+      No: 'No',
+      Little: 'Little',
+      Some: 'Some',
+      Quite: 'Quite',
+      ALot: 'A Lot',
+      Never: 'Never',
+      AFewTimes: 'A few Times',
+      SomeTimes: 'Some Times',
+      ManyTimes: 'Many Times',
+      Always: 'Always'
+    }
   },
   errors: {
     unknown: 'Unknown error. Try Again',

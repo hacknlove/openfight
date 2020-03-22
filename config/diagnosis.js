@@ -41,7 +41,7 @@ const labels = {
   High: 1
 }
 
-export default function diagnosis (currentSymptoms, additionalData, history) {
+export default function diagnosis (currentSymptoms, additionalInformation, history) {
   let maximum = 0
   let mean = 0
 
