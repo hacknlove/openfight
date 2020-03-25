@@ -1,7 +1,7 @@
 import React from 'react'
 import Index from '../components/Index'
-import translationsCommon from '../../translations/common/english.js'
-import translationsView from '../../translations/index/english.js'
+import translationsCommon from '../../translations/common/spanish.js'
+import translationsView from '../../translations/index/spanish.js'
 import getIndex from '../sharedGetInitialProps/getIndex'
 
 export default function Home () {
