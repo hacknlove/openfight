@@ -11,7 +11,7 @@ export default function Hero ({ translations, currentView = '/' }) {
       <div className="hero-body">
         <div className="container">
           <p id="openSourceDataInnovation">
-            <a className="has-text-black" href="https://github.com/hacknlove/stopCovid19" target="_blank" rel="noopener noreferrer"><i className="icon fab fa-github"></i> OpenSource</a><br />
+            <a className="has-text-black" href="https://github.com/hacknlove/openfight" target="_blank" rel="noopener noreferrer"><i className="icon fab fa-github"></i> OpenSource</a><br />
             <a className="has-text-black" href="https://stopcovid19.s3.eu-west-3.amazonaws.com/csv/data.csv" target="_blank" rel="noopener noreferrer"><i className="icon fab fa-creative-commons-share"></i> OpenData</a>
           </p>
           <br />
