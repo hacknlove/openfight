@@ -42,6 +42,7 @@ const translations = {
   Languages: 'Idiomas',
   GetNewPassword: 'Obtener nueva contraseña',
   LogOut: 'Salir',
+  LogIn: 'Entrar',
   Error: 'Error. Inténtalo otra vez',
   PasswordGenerated: 'La nueva contraseña ha sido copiada al portapapeles',
   Date: 'Fecha',
