@@ -5,7 +5,7 @@ const translations = {
   followUpTitle: 'Your additional information:',
   additionalInformation: {
     zip: 'ZIP code',
-    year: 'Year of born',
+    year: 'Year of birth',
     gender: 'Biological gender',
     medicalConditions: 'Medial conditions',
     bloodType: 'Blood type',

@@ -32,7 +32,7 @@ const translations = {
   },
   errors: {
     unknown: 'Unknown error. Try Again',
-    badParameters: 'Parameters not valid.'
+    badParameters: 'Invalid parameters.'
   },
   Next: 'Next',
   LoginTitle: 'Follow Up',
