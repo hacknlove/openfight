@@ -1,6 +1,6 @@
 const translations = {
   title: 'openFight-COVID-19',
-  subtitle: 'anonymous tool for diagnostic and follow-up',
+  subtitle: 'anonymous tool for COVID-19 diagnostic and follow-up',
   Symptoms: 'Symptoms',
   followUpUrl: '/seguimiento',
   symptoms: {
@@ -17,14 +17,14 @@ const translations = {
     fatigue: 'Fatigue',
     lackOfAppetite: 'Lack of Appetite',
     options: {
-      NotAnswer: 'Not answered',
+      NotAnswer: 'Not Answered',
       No: 'No',
       Little: 'Little',
       Some: 'Some',
       Quite: 'Quite',
       ALot: 'A Lot',
       Never: 'Never',
-      AFewTimes: 'A few Times',
+      AFewTimes: 'A Few Times',
       SomeTimes: 'Some Times',
       ManyTimes: 'Many Times',
       Always: 'Always'
