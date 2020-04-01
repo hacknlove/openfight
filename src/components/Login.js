@@ -91,7 +91,7 @@ export default function Login ({ translations }) {
             <div className="field">
               <label className="label">&nbsp;</label>
               <button disabled={hasErrors} className="button is-black">
-                Entrar {hasErrors}
+                {translations.Login} {hasErrors}
               </button>
             </div>
           </form>

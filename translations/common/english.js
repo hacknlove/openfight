@@ -42,6 +42,7 @@ const translations = {
   Languages: 'Languages',
   GetNewPassword: 'Get new Password',
   LogOut: 'Log out',
+  LogIn: 'Log in',
   Error: 'Error. Try again',
   PasswordGenerated: 'The new password has been copied to the clipboard',
   Date: 'Date',
