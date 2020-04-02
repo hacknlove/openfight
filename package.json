@@ -7,12 +7,13 @@
     "debug": "NODE_OPTIONS=--inspect next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "now -e HASH_SECRET=@hash_secret -e MONGO_URL=@mongo_url -e JWT_SECRET=@jwt_secret",
-    "deployPro": "now -e HASH_SECRET=@hash_secret -e MONGO_URL=@mongo_url -e JWT_SECRET=@jwt_secret --prod"
+    "deploy": "now -e HASH_SECRET=@hash_secret -e MONGO_URL=@mongo_url -e JWT_SECRET=@jwt_secret -e accessKeyId=@accesskeyid -e secretAccessKey=@secretaccesskey -e region=@region -e endpoint=@endpoint -e bucket=hoyu openfight",
+    "deployPro": "now  --prod -e HASH_SECRET=@hash_secret -e MONGO_URL=@mongo_url -e JWT_SECRET=@jwt_secret -e accessKeyId=@accesskeyid -e secretAccessKey=@secretaccesskey -e region=@region -e endpoint=@endpoint -e bucket=openfight"
   },
   "dependencies": {
     "@hacknlove/fetchhelper": "^1.4.2",
     "@hapi/joi": "^17.1.1",
+    "aws-sdk": "^2.651.0",
     "bulma": "^0.8.1",
     "bulma-calendar": "^6.0.7",
     "bulma-checkradio": "^1.1.1",

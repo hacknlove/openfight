@@ -49,7 +49,7 @@ export default function Login ({ translations }) {
         <div className="container">
           <h1 className="title">{translations.LoginTitle}</h1>
           <h2 className="subtitle">{translations.LoginSubtitle}</h2>
-          <form className="is-horizontal" onSubmit={handleSubmit(onSubmit)}>
+          <form className="is-horizontal  has-text-black" onSubmit={handleSubmit(onSubmit)}>
             <div className="field">
               <label className="label">{translations.userCode}</label>
               <div className="control has-icons-left">
@@ -91,12 +91,13 @@ export default function Login ({ translations }) {
             <div className="field">
               <label className="label">&nbsp;</label>
               <button disabled={hasErrors} className="button is-black">
-                {translations.Login} {hasErrors}
+                {translations.LogIn}
               </button>
             </div>
           </form>
         </div>
       </div>
+      <p style={{ textAlign: 'right' }}><a className="has-text-white" href="https://zeit.co" target="_blank" rel="noopener noreferrer">Powered by ZEIT</a></p>
     </section>
 
   )

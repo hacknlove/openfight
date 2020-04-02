@@ -4,6 +4,7 @@ import { authenticatedFetch } from '../lib/fetch'
 import { useRouter } from 'next/router'
 
 export default function Nav ({ userCode, translations }) {
+  console.log(userCode)
   const router = useRouter()
   async function renovarContraseña () {
     const response = await authenticatedFetch('renovarPassword', {
@@ -32,7 +33,7 @@ export default function Nav ({ userCode, translations }) {
         <div className="container">
           <h1 className="title">{translations.LoginTitle}</h1>
           <h2 className="subtitle">{translations.LoginSubtitle}</h2>
-          <form className="is-horizontal">
+          <form className="is-horizontal has-text-black">
             <div className="field">
               <label className="label">{translations.userCode}</label>
               <div className="control has-icons-left">
@@ -57,8 +58,8 @@ export default function Nav ({ userCode, translations }) {
             <button onClick={logout} type="button" className="button is-black">{translations.LogOut}</button>
           </div>
         </div>
+        <p style={{ textAlign: 'right' }}><a className="has-text-white" href="https://zeit.co" target="_blank" rel="noopener noreferrer">Powered by ZEIT</a></p>
       </div>
     </section>
-
   )
 }

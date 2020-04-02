@@ -34,12 +34,12 @@ const translations = {
   Help () {
     return (
       <>
-        <h3 className="subtitle">Important information about the diagnosis</h3>
+        <h3 className="subtitle">Información importante sobre el diagnóstico</h3>
         <ol className="helpSteps">
-          <li>This diagnosis is only based on the symptoms you have indicated.</li>
-          <li><strong>You can improve the diagnosis by providing additional information such as age or gender.</strong></li>
-          <li>Another way to improve diagnosis is anonymous monitoring. Update your symptoms periodically for a more accurate diagnosis.</li>
-          <li>In addition, you will be helping to improve the statistical and deep learning models with which the pandemic is fought.</li>
+          <li>Este diagnóstico sólo se basa en los síntomas que has indicado.</li>
+          <li><strong>Puedes mejorar el diagnóstico incluyendo información adicional como la edad o el género.</strong></li>
+          <li>Otra manera de mejorar el diagnóstico es mediante el seguimiento anónimo. Actualiza tus síntomas de forma periódica para un diagnóstico más preciso.</li>
+          <li>Además, estarás ayudando a mejorar las herramientas de bigData con las que se lucha contra la enfermedad.</li>
         </ol>
       </>
     )
