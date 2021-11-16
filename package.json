@@ -13,7 +13,7 @@
   "dependencies": {
     "@hacknlove/fetchhelper": "^1.4.2",
     "@hapi/joi": "^17.1.1",
-    "aws-sdk": "^2.651.0",
+    "aws-sdk": "^2.814.0",
     "bulma": "^0.8.1",
     "bulma-calendar": "^6.0.7",
     "bulma-checkradio": "^1.1.1",
