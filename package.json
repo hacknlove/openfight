@@ -30,7 +30,7 @@
     "next": "^9.3.3",
     "next-absolute-url": "^1.2.2",
     "next-redirect": "^1.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "nookies": "^2.2.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
